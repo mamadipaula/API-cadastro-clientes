@@ -1,0 +1,238 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+       "title": "Cadastro_de_Clientes",
+       "description": "Documentation from cadastro api",
+       "version": "1.0.0"
+    },
+    "basePath": "/",
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }   
+    },
+    
+
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["Usuário"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "celphone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Created"
+                }
+            }},
+        "/users/:id": {
+            "get": {
+                "security": [{"bearerAuth": []}],
+                "tags": ["Usuário"],
+                "parameters": {
+                    "in": "url",
+                    "id": "id",
+                    "type": "string"
+                },
+                "responses": {
+                    "200": {
+                    "description": "OK"
+                    } 
+                }
+            },
+            "patch": {
+                "security": [{"bearerAuth": []}],
+                "tags": ["Usuário"],
+                "parameters": {
+                    "in": "url",
+                    "id": "id",
+                    "type": "string"
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "celphone": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            } ,
+            "delete": {
+                "security": [{"bearerAuth": []}],
+                "tags": ["Usuário"],
+                "parameters": {
+                    "in": "url",
+                    "id": "id",
+                    "type": "string"
+                }, 
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }          
+        },
+        "/login": {
+            "post": {
+                "tags": ["login"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "responses": {
+                "200": {
+                    "description": "OK"
+                }
+            }
+
+        },
+        "/contacts": {
+            "post": {
+                "security": [{"bearerAuth": []}],
+                "tags": ["Contatos"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "celphone": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "Created"
+                }
+            }
+        },
+        "/contacts/:id": {
+            "patch": {
+                "security": [{"bearerAuth": []}],
+                "tags": ["Contatos"],
+                "parameters": {
+                    "in": "url",
+                    "id": "id",
+                    "type": "string"
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "celphone": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            } ,
+            "delete": {
+                "security": [{"bearerAuth": []}],
+                "tags": ["Contatos"],
+                "parameters": {
+                    "in": "url",
+                    "id": "id",
+                    "type": "string"
+                }, 
+                "responses": {
+                    "204": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+        
+    }
+}
