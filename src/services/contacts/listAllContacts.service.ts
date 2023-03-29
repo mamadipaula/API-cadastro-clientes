@@ -1,7 +1,6 @@
-import AppDataSource from "../../data-source";
-import { Contact } from "../../entities/contact.entity";
-import { listContactsSchema } from "../../schemas/contact.schema";
-
+import AppDataSource from "../../data-source"
+import { Contact } from "../../entities/contact.entity"
+import { listContactsSchema } from "../../schemas/contact.schema"
 
 
 const listAllContactsService = async ()  => {

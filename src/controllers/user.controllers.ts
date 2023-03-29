@@ -1,31 +1,33 @@
-import { IUserRequest, IUserUpdate } from "../interfaces/user.interfaces";
-import { createUserService } from "../services/user/createUser.service";
-import { Request, Response } from "express";
-import { retrieveUserService } from "../services/user/listUser.service";
-import { updateUserService } from "../services/user/updateUser.service";
-import { deleteUserService } from "../services/user/deleteUser.service";
+import { IUserRequest, IUserUpdate } from "../interfaces/user.interfaces"
+import createUserService from "../services/user/createUser.service"
+import { Request, Response } from "express"
+import listUserService from "../services/user/listUser.service"
+import updateUserService from "../services/user/updateUser.service"
+import deleteUserService from "../services/user/deleteUser.service"
 
-export const createUserController = async (req: Request, res: Response) => {
-  const userData: IUserRequest = req.body;
-  const createdUser = await createUserService(userData);
-  return res.status(201).json(createdUser);
-};
+const createUserController = async (req: Request, res: Response) => {
+  const userData: IUserRequest = req.body
+  const user = await createUserService(userData)
+  return res.status(201).json(user)
+}
 
-export const retrieveUserController = async (req: Request, res: Response) => {
-  const userId: string = req.params.id;
-  const users = await retrieveUserService(userId);
-  return res.status(200).json(users);
-};
+const listUserController = async (req: Request, res: Response) => {
+  const id: string = req.params.id
+  const user = await listUserService(id)
+  return res.status(200).json(user)
+}
 
-export const updateUserController = async (req: Request, res: Response) => {
-  const userData: IUserUpdate = req.body;
-  const userId: string = req.params.id;
-  const updatedUser = await updateUserService(userData, userId);
-  return res.status(200).json(updatedUser);
-};
+const updateUserController = async (req: Request, res: Response) => {
+  const userData: IUserUpdate = req.body
+  const id: string = req.params.id
+  const user = await updateUserService(userData, id)
+  return res.status(200).json(user)
+}
 
-export const deleteUserController = async (req: Request, res: Response) => {
-  const userId: string = req.params.id;
-  await deleteUserService(userId);
-  return res.status(204).json();
-};
+const deleteUserController = async (req: Request, res: Response) => {
+  const id: string = req.params.id
+  await deleteUserService(id)
+  return res.status(204).json()
+}
+
+export { createUserController, listUserController, updateUserController, deleteUserController}

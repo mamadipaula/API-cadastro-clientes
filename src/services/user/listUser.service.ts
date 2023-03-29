@@ -1,27 +1,29 @@
-import { AppError } from "../../errors";
-import { userWithoutPassword } from "../../schemas/user.schema";
-import { User } from "../../entities/user.entity";
-import AppDataSource from "../../data-source";
+import { AppError } from "../../errors"
+import { userWithoutPassword } from "../../schemas/user.schema"
+import { User } from "../../entities/user.entity"
+import AppDataSource from "../../data-source"
 
-export const retrieveUserService = async (userId: string) => {
-  const userRepository = AppDataSource.getRepository(User);
+const listUserService = async (id: string) => {
+  const userRepository = AppDataSource.getRepository(User)
 
-  const foundUser = await userRepository.findOne({
+  const user = await userRepository.findOne({
     where: {
-      id: userId,
+      id: id,
     },
     relations: {
       contacts: true,
     },
-  });
+  })
 
-  if (!foundUser) {
-    throw new AppError("User not found", 404);
+  if (!user) {
+    throw new AppError("User not found", 404)
   }
 
-  const usersToShow = await userWithoutPassword.validate(foundUser, {
+  const userResponse = await userWithoutPassword.validate(user, {
     stripUnknown: true,
-  });
+  })
 
-  return usersToShow;
-};
+  return userResponse
+}
+
+export default listUserService

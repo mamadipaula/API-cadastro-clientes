@@ -1,27 +1,27 @@
-import { userSchema, userUpdateSchema } from "./../schemas/user.schema";
-import { ensureDataIsValid } from "./../middlewares/ensureDataIsValid.middleware";
-import { ensureAuthMiddleware } from "./../middlewares/ensureAuth.middleware";
+import { userSchema, userUpdateSchema } from "./../schemas/user.schema"
+import ensureDataIsValid from "./../middlewares/ensureDataIsValid.middleware"
+import ensureAuthMiddleware from "./../middlewares/ensureAuth.middleware"
 import {
   createUserController,
   deleteUserController,
-  retrieveUserController,
+  listUserController,
   updateUserController,
-} from "./../controllers/user.controllers";
-import { Router } from "express";
+} from "./../controllers/user.controllers"
+import { Router } from "express"
 
-export const userRoutes = Router();
+export const userRoutes = Router()
 
-userRoutes.post("", ensureDataIsValid(userSchema), createUserController);
-userRoutes.get("/:id", ensureAuthMiddleware, retrieveUserController);
+userRoutes.post("", ensureDataIsValid(userSchema), createUserController)
+userRoutes.get("/:id", ensureAuthMiddleware, listUserController)
 userRoutes.patch(
   "/:id",
   ensureDataIsValid(userUpdateSchema),
   ensureAuthMiddleware,
   updateUserController
-);
+)
 
 userRoutes.delete(
   "/:id",
   ensureAuthMiddleware,
   deleteUserController
-);
+)

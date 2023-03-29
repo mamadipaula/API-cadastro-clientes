@@ -1,27 +1,29 @@
-import { contactResponse } from "./../../schemas/contact.schema";
-import { Contact } from "./../../entities/contact.entity";
-import AppDataSource from "../../data-source";
-import { IContactUpdate } from "./../../interfaces/contact.interfaces";
+import { contactResponse } from "./../../schemas/contact.schema"
+import { Contact } from "./../../entities/contact.entity"
+import AppDataSource from "../../data-source"
+import { IContactUpdate } from "./../../interfaces/contact.interfaces"
 
-export const updateContactService = async (
-  contactId: string,
+const updateContactService = async (
+  id: string,
   contactData: IContactUpdate
 ) => {
   const contactsRepository = AppDataSource.getRepository(Contact);
 
-  const findContact = await contactsRepository.findOneBy({
-    id: contactId,
-  });
+  const contact = await contactsRepository.findOneBy({
+    id: id,
+  })
 
   let updatedContact = contactsRepository.create({
-    ...findContact,
+    ...contact,
     ...contactData,
-  });
+  })
 
-  updatedContact = await contactsRepository.save(updatedContact);
+  updatedContact = await contactsRepository.save(updatedContact)
   const updatedContactToShow = await contactResponse.validate(updatedContact, {
     stripUnknown: true,
-  });
+  })
 
-  return updatedContactToShow;
-};
+  return updatedContactToShow
+}
+
+export default updateContactService
