@@ -7,9 +7,23 @@ import { userRoutes } from "./routes/user.routes"
 import { contactsRoutes } from "./routes/contacts.routes"
 import swaggerUI from "swagger-ui-express"
 import swaggerDocument from "../swagger.json"
+import cors from "cors"
 
 const app = express()
 app.use(express.json())
+
+app.use(
+    cors({
+      allowedHeaders: [
+        "sessionId",
+        "Content-Type",
+        "Authorization",
+        "authorization",
+      ],
+      origin: ["http://localhost:3000"],
+      methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    })
+  )
 
 app.use("/users", userRoutes)
 app.use("/login", sessionRoutes)
